@@ -1,8 +1,11 @@
 import "./styles.css";
 
-const Square = ({ value, onSquareClick }) => {
+const Square = ({ value, isWinSquare, onSquareClick }) => {
   return (
-    <button className="square" onClick={onSquareClick}>
+    <button
+      className={isWinSquare ? "square win" : "square"}
+      onClick={onSquareClick}
+    >
       {value}
     </button>
   );

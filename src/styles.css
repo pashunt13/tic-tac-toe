@@ -37,6 +37,11 @@ ul {
   outline: none;
 }
 
+.win {
+  background: #800000;
+  color: #f5f5f5;
+}
+
 .kbd-navigation .square:focus {
   background: #ddd;
 }

@@ -16,9 +16,13 @@ const Board = ({ xIsNext, squares, onPlay }) => {
   };
 
   const winner = calculateWinner(squares);
+  let winPoints = [];
   let status;
   if (winner) {
-    status = "Winner: " + winner;
+    status = "Winner: " + winner.winner;
+    winPoints = winner.winPoints;
+  } else if (winner === false) {
+    status = "Draw";
   } else {
     status = "Next player: " + (xIsNext ? "X" : "O");
   }
@@ -40,6 +44,9 @@ const Board = ({ xIsNext, squares, onPlay }) => {
                 <Square
                   key={square}
                   value={squares[square]}
+                  isWinSquare={
+                    winPoints.length !== 0 && winPoints.includes(square)
+                  }
                   onSquareClick={() => handleClick(square)}
                 />
               );
@@ -67,8 +74,12 @@ const calculateWinner = (squares) => {
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i];
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return squares[a];
+      return {
+        winner: squares[a],
+        winPoints: [a, b, c],
+      };
     }
+    if (!squares.includes(null)) return false;
   }
   return null;
 };
