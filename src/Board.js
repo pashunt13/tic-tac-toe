@@ -10,7 +10,7 @@ const Board = ({ xIsNext, squares, onPlay }) => {
 
     const nextSquares = squares.slice();
     const nextPoints = [i + 1, j + 1];
-    console.log(nextPoints);
+    // console.log(nextPoints);
     if (xIsNext) {
       nextSquares[square] = "X";
     } else {
@@ -42,11 +42,11 @@ const Board = ({ xIsNext, squares, onPlay }) => {
       <div className="status">{status}</div>
       {rows.map((row, i) => {
         return (
-          <div className="board-row" key={row}>
+          <div className="board-row" key={`row${i}`}>
             {row.map((square, j) => {
               return (
                 <Square
-                  key={square}
+                  key={`col${j}`}
                   value={squares[square]}
                   isWinSquare={
                     winPoints.length !== 0 && winPoints.includes(square)
