@@ -3,23 +3,23 @@ import "./styles.css";
 
 const Board = ({ xIsNext, squares, onPlay }) => {
   const handleClick = (square, i, j) => {
-    if (squares[square] || calculateWinner(squares)) {
-      return;
-    }
-    // console.log(squares);
+    // if (squares[square] || calculateWinner(squares)) {
+    //   return;
+    // }
+    console.log(squares);
 
     const nextSquares = squares.slice();
     const nextPoints = [i + 1, j + 1];
     // console.log(nextPoints);
     if (xIsNext) {
-      nextSquares[square] = "X";
+      nextSquares[i][j] = "X";
     } else {
-      nextSquares[square] = "O";
+      nextSquares[i][j] = "O";
     }
     onPlay(nextSquares, nextPoints);
   };
 
-  const winner = calculateWinner(squares);
+  const winner = null;
   let winPoints = [];
   let status;
   if (winner) {
@@ -47,7 +47,7 @@ const Board = ({ xIsNext, squares, onPlay }) => {
               return (
                 <Square
                   key={`col${j}`}
-                  value={squares[square]}
+                  value={squares[i][j]}
                   isWinSquare={
                     winPoints.length !== 0 && winPoints.includes(square)
                   }
