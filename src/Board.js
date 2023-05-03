@@ -2,17 +2,21 @@ import Square from "./Square";
 import "./styles.css";
 
 const Board = ({ xIsNext, squares, onPlay }) => {
-  const handleClick = (i) => {
-    if (squares[i] || calculateWinner(squares)) {
+  const handleClick = (square, i, j) => {
+    if (squares[square] || calculateWinner(squares)) {
       return;
     }
+    // console.log(squares);
+
     const nextSquares = squares.slice();
+    const nextPoints = [i + 1, j + 1];
+    console.log(nextPoints);
     if (xIsNext) {
-      nextSquares[i] = "X";
+      nextSquares[square] = "X";
     } else {
-      nextSquares[i] = "O";
+      nextSquares[square] = "O";
     }
-    onPlay(nextSquares);
+    onPlay(nextSquares, nextPoints);
   };
 
   const winner = calculateWinner(squares);
@@ -36,10 +40,10 @@ const Board = ({ xIsNext, squares, onPlay }) => {
   return (
     <>
       <div className="status">{status}</div>
-      {rows.map((row) => {
+      {rows.map((row, i) => {
         return (
           <div className="board-row" key={row}>
-            {row.map((square) => {
+            {row.map((square, j) => {
               return (
                 <Square
                   key={square}
@@ -47,7 +51,7 @@ const Board = ({ xIsNext, squares, onPlay }) => {
                   isWinSquare={
                     winPoints.length !== 0 && winPoints.includes(square)
                   }
-                  onSquareClick={() => handleClick(square)}
+                  onSquareClick={() => handleClick(square, i, j)}
                 />
               );
             })}

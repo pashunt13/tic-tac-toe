@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./styles.css";
 
-const Info = ({ history, currentMove, jumpTo }) => {
+const Info = ({ history, pointsHistory, currentMove, jumpTo }) => {
   const [isTurned, setIsTurned] = useState(false);
 
   const turnHistory = () => {
@@ -13,11 +13,12 @@ const Info = ({ history, currentMove, jumpTo }) => {
       move = history.length - 1 - move;
     }
 
+    const points = pointsHistory[move - 1];
     let description;
     if (currentMove === move && move > 0) {
-      description = "You are at move # " + currentMove;
+      description = "You are at move # " + currentMove + " [" + points + "]";
     } else if (move > 0) {
-      description = "Go to move #" + move;
+      description = "Go to move #" + move + " [" + points + "]";
     } else {
       description = "Go to game start";
     }
