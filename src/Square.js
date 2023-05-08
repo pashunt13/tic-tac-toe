@@ -1,11 +1,14 @@
 import "./styles.css";
+import classNames from "classnames";
 
 const Square = ({ value, isWinSquare, onSquareClick }) => {
+  const className = classNames({
+    square: !isWinSquare,
+    "square win": isWinSquare,
+  });
+
   return (
-    <button
-      className={isWinSquare ? "square win" : "square"}
-      onClick={onSquareClick}
-    >
+    <button className={className} onClick={onSquareClick}>
       {value}
     </button>
   );

@@ -4,7 +4,7 @@ import Info from "./Info";
 import "./styles.css";
 
 const Game = () => {
-  const [history, setHistory] = useState([Array(3).fill(Array(3).fill(null))]);
+  const [history, setHistory] = useState([Array(9).fill(null)]);
   const [pointsHistory, setPointsHistory] = useState([]);
   const [currentMove, setCurrentMove] = useState(0);
   const xIsNext = currentMove % 2 === 0;
@@ -15,11 +15,6 @@ const Game = () => {
     setHistory(nextHistory);
     setCurrentMove(nextHistory.length - 1);
     setPointsHistory([...pointsHistory, nextPoints]);
-
-    console.log(nextPoints);
-    // console.log("nextHistory", nextHistory);
-    // console.log("currentMove", currentMove);
-    // console.log("nextSquares", nextSquares);
   };
 
   const jumpTo = (nextMove) => {
