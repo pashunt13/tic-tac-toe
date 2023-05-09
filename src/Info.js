@@ -16,14 +16,14 @@ const Info = ({ history, pointsHistory, currentMove, jumpTo }) => {
     const points = pointsHistory[move - 1];
     let description;
     if (currentMove === move && move > 0) {
-      description = "You are at move # " + currentMove + " [" + points + "]";
+      description = `You are at move # ${currentMove} [${points}]`;
     } else if (move > 0) {
-      description = "Go to move #" + move + " [" + points + "]";
+      description = `Go to move # ${move} [${points}]`;
     } else {
-      description = "Go to game start";
+      description = `Go to game start`;
     }
     return (
-      <li key={move}>
+      <li key={`move-${move}`}>
         <button onClick={() => jumpTo(move)}>{description}</button>
       </li>
     );
@@ -31,7 +31,7 @@ const Info = ({ history, pointsHistory, currentMove, jumpTo }) => {
 
   return (
     <>
-      <button onClick={() => turnHistory()}>Turn History</button>
+      <button onClick={turnHistory}>Turn History</button>
       <ol>{moves}</ol>
     </>
   );

@@ -15,11 +15,6 @@ const Game = () => {
     setHistory(nextHistory);
     setCurrentMove(nextHistory.length - 1);
     setPointsHistory([...pointsHistory, nextPoints]);
-
-    console.log(nextPoints);
-    // console.log("nextHistory", nextHistory);
-    // console.log("currentMove", currentMove);
-    // console.log("nextSquares", nextSquares);
   };
 
   const jumpTo = (nextMove) => {
