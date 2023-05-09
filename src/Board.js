@@ -2,6 +2,17 @@ import Square from "./Square";
 import { useCallback, useMemo } from "react";
 import "./styles.css";
 
+const lines = [
+  [0, 1, 2],
+  [3, 4, 5],
+  [6, 7, 8],
+  [0, 3, 6],
+  [1, 4, 7],
+  [2, 5, 8],
+  [0, 4, 8],
+  [2, 4, 6],
+];
+
 const rows = [
   [0, 1, 2],
   [3, 4, 5],
@@ -9,18 +20,7 @@ const rows = [
 ];
 
 const Board = ({ xIsNext, squares, onPlay }) => {
-  const winner = useMemo(() => {
-    const lines = [
-      [0, 1, 2],
-      [3, 4, 5],
-      [6, 7, 8],
-      [0, 3, 6],
-      [1, 4, 7],
-      [2, 5, 8],
-      [0, 4, 8],
-      [2, 4, 6],
-    ];
-
+  const { winner, winPoints = [] } = useMemo(() => {
     for (let i = 0; i < lines.length; i++) {
       const [a, b, c] = lines[i];
       if (
@@ -36,21 +36,20 @@ const Board = ({ xIsNext, squares, onPlay }) => {
     }
 
     if (!squares.includes(null)) {
-      return false;
+      return { winner: false };
     }
-    return null;
+    return {};
   }, [squares]);
 
-  let winPoints = [];
-  let status;
-  if (winner) {
-    status = `Winner: ${winner.winner}`;
-    winPoints = winner.winPoints;
-  } else if (winner === false) {
-    status = `Draw`;
-  } else {
-    status = `Next player: ${xIsNext ? "X" : "O"}`;
-  }
+  const status = useMemo(() => {
+    if (winner) {
+      return `Winner: ${winner}`;
+    } else if (winner === false) {
+      return "Draw";
+    } else {
+      return `Next player: ${xIsNext ? "X" : "O"}`;
+    }
+  }, [xIsNext, winner]);
 
   const handleClick = useCallback(
     (square, i, j) => {
@@ -58,13 +57,9 @@ const Board = ({ xIsNext, squares, onPlay }) => {
         return;
       }
 
-      const nextSquares = squares.slice();
+      const nextSquares = Array.from(squares);
       const nextPoints = [i + 1, j + 1];
-      if (xIsNext) {
-        nextSquares[square] = "X";
-      } else {
-        nextSquares[square] = "O";
-      }
+      nextSquares[square] = xIsNext ? "X" : "O";
       onPlay(nextSquares, nextPoints);
     },
     [xIsNext, winner, squares, onPlay]
