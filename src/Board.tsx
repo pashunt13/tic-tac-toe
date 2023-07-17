@@ -2,6 +2,12 @@ import Square from "./Square";
 import { useCallback, useMemo } from "react";
 import "./styles.css";
 
+interface BoardProps {
+  xIsNext: boolean;
+  squares: (string | null)[];
+  onPlay: Function;
+}
+
 const lines = [
   [0, 1, 2],
   [3, 4, 5],
@@ -19,7 +25,7 @@ const rows = [
   [6, 7, 8],
 ];
 
-const Board = ({ xIsNext, squares, onPlay }) => {
+const Board = ({ xIsNext, squares, onPlay }: BoardProps) => {
   const { winner, winPoints = [] } = useMemo(() => {
     for (let i = 0; i < lines.length; i++) {
       const [a, b, c] = lines[i];
@@ -52,7 +58,7 @@ const Board = ({ xIsNext, squares, onPlay }) => {
   }, [xIsNext, winner]);
 
   const handleClick = useCallback(
-    (square, i, j) => {
+    (square: number, i: number, j: number) => {
       if (squares[square] || winner) {
         return;
       }

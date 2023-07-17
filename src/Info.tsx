@@ -1,7 +1,14 @@
 import { useState } from "react";
 import "./styles.css";
 
-const Info = ({ history, pointsHistory, currentMove, jumpTo }) => {
+interface InfoProps {
+  history: string[][];
+  pointsHistory: number[];
+  currentMove: number;
+  jumpTo: Function;
+}
+
+const Info = ({ history, pointsHistory, currentMove, jumpTo }: InfoProps) => {
   const [isTurned, setIsTurned] = useState(false);
 
   const turnHistory = () => {

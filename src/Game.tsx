@@ -5,19 +5,19 @@ import "./styles.css";
 
 const Game = () => {
   const [history, setHistory] = useState([Array(9).fill(null)]);
-  const [pointsHistory, setPointsHistory] = useState([]);
+  const [pointsHistory, setPointsHistory] = useState<number[]>([]);
   const [currentMove, setCurrentMove] = useState(0);
   const xIsNext = currentMove % 2 === 0;
   const currentSquares = history[currentMove];
 
-  const handlePlay = (nextSquares, nextPoints) => {
+  const handlePlay = (nextSquares: string[], nextPoints: number) => {
     const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
     setHistory(nextHistory);
     setCurrentMove(nextHistory.length - 1);
     setPointsHistory([...pointsHistory, nextPoints]);
   };
 
-  const jumpTo = (nextMove) => {
+  const jumpTo = (nextMove: number) => {
     setCurrentMove(nextMove);
   };
 
