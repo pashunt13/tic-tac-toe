@@ -13,8 +13,8 @@ const Game = () => {
   const handlePlay = (nextSquares: string[], nextPoints: number) => {
     const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
     setHistory(nextHistory);
+    setPointsHistory([...pointsHistory.slice(0, currentMove), nextPoints]);
     setCurrentMove(nextHistory.length - 1);
-    setPointsHistory([...pointsHistory, nextPoints]);
   };
 
   const jumpTo = (nextMove: number) => {
